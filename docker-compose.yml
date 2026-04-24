@@ -1,0 +1,18 @@
+version: "3.8"
+
+services:
+  postgres:
+    image: postgres:16-alpine
+    container_name: refresh-token-postgres
+    restart: always
+    environment:
+      POSTGRES_DB: refresh_token_db
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: 1234
+    ports:
+      - "5433:5432"
+    volumes:
+      - refresh_token_postgres_data:/var/lib/postgresql/data
+
+volumes:
+  refresh_token_postgres_data:
