@@ -5,6 +5,7 @@ import com.muhammetakduman.refresh_token_auth.entitiy.User;
 import com.muhammetakduman.refresh_token_auth.exception.TokenRefreshException;
 import com.muhammetakduman.refresh_token_auth.repository.RefreshTokenRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -18,6 +19,9 @@ public class RefreshTokenService {
     private final RefreshTokenRepository refreshTokenRepository;
     private final TokenHashService tokenHashService;
 
+    @Value("${jwt.refresh-token-expiration-minutes}")
+    private long refreshTokenExpirationMinutes;
+
     // Kullanıcı için yeni refresh token oluştur, eskisini sil
     @Transactional
     public String createRefreshToken(User user) {
@@ -30,7 +34,7 @@ public class RefreshTokenService {
         RefreshToken refreshToken = RefreshToken.builder()
                 .tokenHash(tokenHash)
                 .user(user)
-                .expiryDate(LocalDateTime.now().plusMinutes(5))
+                .expiryDate(LocalDateTime.now().plusMinutes(refreshTokenExpirationMinutes))
                 .revoked(false)
                 .createdAt(LocalDateTime.now())
                 .build();

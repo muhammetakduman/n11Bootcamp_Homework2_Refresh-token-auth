@@ -10,7 +10,7 @@ public class CookieConfig {
         cookie.setHttpOnly(true);
         cookie.setSecure(false);
         cookie.setPath("/");
-        cookie.setMaxAge(5 * 60);
+        cookie.setMaxAge(5 * 60); // 5 dakika
         return cookie;
     }
     public Cookie clearRefreshTokenCookie(){
