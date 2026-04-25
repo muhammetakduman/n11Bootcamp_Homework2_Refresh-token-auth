@@ -9,8 +9,8 @@ import lombok.Data;
 public class LoginRequest {
     @Email(message = "Invalid email format")
     @NotBlank(message = "Email cannot be empty")
-    private String Email;
+    private String email;
 
     @NotBlank(message = "Password cannot be empty")
-    private String Password;
+    private String password;
 }
